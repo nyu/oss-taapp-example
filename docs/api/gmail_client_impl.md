@@ -1,8 +1,6 @@
 # Gmail Client Implementation
 
-This documentation is auto-generated from the docstrings in the `gmail_client_impl` package.
-
-The Gmail Client Implementation provides a concrete implementation of the Mail Client API using Google's Gmail API.
+`gmail_client_impl` implements the Mail Client API using Google's Gmail SDK. The reference below is produced from the package docstrings.
 
 ## Package Overview
 

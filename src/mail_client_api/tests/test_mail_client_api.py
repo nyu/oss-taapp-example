@@ -1,25 +1,23 @@
-"""Tests for the mail client API protocols.
+"""Tests for the mail client API abstract base classes.
 
 This module contains unit tests that verify the contracts and behavior
-of the mail_client_api.Client and mail_client_api.Message protocols.
+of the mail_client_api.Client and mail_client_api.Message abstractions.
 These tests use mocks to demonstrate how implementations should behave
 and serve as documentation for the expected API contracts.
 """
 
 from unittest.mock import Mock
 
-from message import Message
-
-from mail_client_api import Client
+from mail_client_api import Client, Message
 
 
 def test_client_get_messages() -> None:
     """Verifies and demonstrates the contract for the `get_messages` method.
 
-    This test ensures that any implementation of the `Client` protocol
+    This test ensures that any implementation of the `Client` abstraction
     must have a `get_messages` method that returns an iterator of `Message` objects.
     """
-    # ARRANGE: Create mocks that conform to our protocols.
+    # ARRANGE: Create mocks that conform to our abstractions.
     mock_message = Mock(spec=Message)
     mock_message.id = "msg_1"
     mock_message.subject = "Test Subject"

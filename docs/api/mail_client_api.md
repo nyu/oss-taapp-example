@@ -1,5 +1,5 @@
 # Mail Client API Reference
 
-This documentation is auto-generated from the docstrings in the `mail_client_api` package.
+`mail_client_api` houses the `Client` abstract base class and the `get_client` factory. The API surface below is generated from package docstrings.
 
 ::: mail_client_api

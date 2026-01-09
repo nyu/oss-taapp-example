@@ -213,25 +213,59 @@ workflows:
   # Main workflow: Build, Lint, Test (runs on all branches)
   build_and_test:
     jobs:
-      - build
-
+      - build:
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
       - lint:
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
 
       - unit_test:
           requires:
             - build
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
 
       - circleci_test:
           requires:
             - unit_test # Run after unit tests pass
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
 
       # Optional: Report summary after core tests
       - report_summary:
           requires:
             - unit_test
             - circleci_test
+          filters:
+            branches:
+              ignore:
+                - main
+                - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
 
   # Enhanced workflow: Full tests with real credentials (main/develop only)
   full_integration:
@@ -242,6 +276,8 @@ workflows:
               only:
                 - main
                 - develop # Add other branches as needed
+                - kamen-requierd-fixes
+                - make-real-deletions
 
       - lint:
           requires:
@@ -251,6 +287,8 @@ workflows:
               only:
                 - main
                 - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
 
       - unit_test:
           requires:
@@ -260,6 +298,8 @@ workflows:
               only:
                 - main
                 - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
 
       - circleci_test:
           requires:
@@ -269,6 +309,8 @@ workflows:
               only:
                 - main
                 - develop
+                - kamen-requierd-fixes
+                - make-real-deletions
 
       - integration_test:
           requires:
@@ -279,7 +321,9 @@ workflows:
               only:
                 - main
                 - develop
-
+                - kamen-requierd-fixes
+                - make-real-deletions
+                
       - report_summary:
           requires:
             - unit_test
@@ -290,3 +334,5 @@ workflows:
               only:
                 - main
                 - develop
+                - kamen-requierd-fixes
+                - make-real-deletions

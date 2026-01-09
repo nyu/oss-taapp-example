@@ -14,26 +14,22 @@ The project emphasizes a strict separation of concerns, dependency injection, an
 This project is built on the principle of "programming integrated over time." The architecture is designed to combat complexity and ensure the system is maintainable and evolvable.
 
 -   **Component-Based Design:** The system is broken down into four distinct, self-contained components. Each component has a single responsibility and can be "forklifted" out of this project to be used in another with minimal effort.
--   **Interface-Implementation Separation:** Every piece of functionality is defined by an abstract **protocol** (the "what") and fulfilled by a concrete **implementation** (the "how"). This decouples our business logic from specific technologies (like Gmail).
--   **Dependency Injection:** Implementations are "injected" into the abstract protocols at runtime. This means consumers of the API only ever depend on the stable interface, not the volatile implementation details.
+-   **Interface-Implementation Separation:** Every piece of functionality is defined by an abstract **contract** implemented as an ABC (the "what") and fulfilled by a concrete **implementation** (the "how"). This decouples our business logic from specific technologies (like Gmail).
+-   **Dependency Injection:** Implementations are "injected" into the abstract contracts at runtime. This means consumers of the API only ever depend on the stable interface, not the volatile implementation details.
 
 ## Core Components
 
 The project is a `uv` workspace containing four primary packages:
 
-1.  **`message`**: Defines the abstract `Message` protocol. This is the contract for what an email message looks like.
-2.  **`gmail_message_impl`**: Provides the `GmailMessage` class, a concrete implementation that knows how to parse raw data from the Gmail API into a `Message` object.
-3.  **`mail_client_api`**: Defines the abstract `Client` protocol. This is the contract for what actions a mail client can perform (e.g., `get_messages`).
-4.  **`gmail_client_impl`**: Provides the `GmailClient` class, a concrete implementation that uses the Google API to perform the actions defined in the `Client` protocol.
+3.  **`mail_client_api`**: Defines the abstract `Client` base class (ABC). This is the contract for what actions a mail client can perform (e.g., `get_messages`).
+4.  **`gmail_client_impl`**: Provides the `GmailClient` class, a concrete implementation that uses the Google API to perform the actions defined in the `Client` abstraction.
 
 ## Project Structure
 
 ```
 ta-assignment/
 ├── src/                          # Source packages (uv workspace members)
-│   ├── message/                  # Abstract message protocol
-│   ├── gmail_message_impl/       # Gmail-specific message implementation
-│   ├── mail_client_api/          # Abstract mail client protocol  
+│   ├── mail_client_api/          # Abstract mail client base class (ABC)  
 │   └── gmail_client_impl/        # Gmail-specific client implementation
 ├── tests/                        # Integration and E2E tests
 │   ├── integration/              # Component integration tests

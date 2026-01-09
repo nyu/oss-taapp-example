@@ -24,8 +24,6 @@ dev = [
 members = [
   "src/mail_client_api",
   "src/gmail_client_impl",
-  "src/message",
-  "src/gmail_message_impl",
 ]
 
 [tool.ruff]
@@ -35,44 +33,16 @@ target-version = "py311"
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
-  "COM812", # Trailing comma conflicts with formatter
-  "D100",  # Ignore missing module-level docstrings for a non-buildable module
-  "T201", # Print statements are fine
   "D203", # `incorrect-blank-line-before-class` (D203) and `no-blank-line-before-class` (D211) are incompatible. Ignoring `incorrect-blank-line-before-class`.
   "D213", # `multi-line-summary-first-line` (D212) and `multi-line-summary-second-line` (D213) are incompatible. Ignoring `multi-line-summary-second-line`.
-  "B017", # blind exceptions can be ok for tests
-  "PT011", # blind exceptions can be ok for tests
-  "BLE001", # blind exceptions can be ok for tests
-  "S101", # asserts are ok for tests
-  "ANN201", # fine to ignore on parent package since it only runs tests
-  "D200", # one line docstring nitpick
-  "D205", # one line docstring nitpick
-  "W293", # unexpected white space checking behaviour in top package
-  "PLC0415", # conditional imports happen in tests to speed up progress
-  "S603", # valid subprocess calls on tests
-  "PLR0912", # tests are complex
-  "PLR0915", # tests are complex
-  "ANN401", # integartion and e2e tests can depend on untyped external classes
-  "C901", # tests are complex
-  "S106", # Possible hardcoded password - these are test values
-  "ANN001", # Missing type annotation for function argument - common in test mocks
-  "ARG002", # Unused method argument - common in test mocks
-  "ARG001", # Unused function argument - common in test helpers
-  "SLF001", # Private member accessed - testing private methods is legitimate
-  "PLR2004", # Magic value used in comparison - tests often use literal values
-  "SIM117", # Use single with statement - sometimes nested is clearer in tests
-  "PLR1704", # Redefining argument with local name - common in test patches
-  "TRY301", # Abstract raise to inner function - not always needed
-  "D401", # First line of docstring should be imperative - test docstrings can be descriptive
-  "E501", # Line too long - tests can be verbose for clarity
-  "TRY300", # Consider moving statement to else block - sometimes clearer as is
-  "PLW2901", # Loop variable overwritten - sometimes intentional for processing
+  "S101", # Use of `assert` detected --> Asserts are good in our opinion. Tests use asserts profusely.
 ]
+per-file-ignores = { "**/test_*.py" = ["TRY300", "BLE001", "ANN401", "SLF001", "E501", "S105", "ARG001", "ARG002", "S106", "INP001", "PLC0415"] }
 
 [tool.mypy]
 strict = true
 explicit_package_bases = true # Required for src layout
-mypy_path = ["src/mail_client_api/src", "src/mail_client_gmail_impl/src", "src/gmail_message_impl/src", "src/message/src"]
+mypy_path = ["src/mail_client_api/src", "src/gmail_client_impl/src"]
 ignore_missing_imports = false
 warn_unused_ignores = false
 
@@ -81,10 +51,6 @@ warn_unused_ignores = false
 module = [
     "google.*",
     "googleapiclient.*",
-    "gmail_client_impl.*",
-    "message.*",
-    "mail_client_api.*",
-    "gmail_message_impl.*"
 ]
 ignore_missing_imports = true
 
