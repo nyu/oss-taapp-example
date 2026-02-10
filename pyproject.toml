@@ -8,11 +8,13 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
+    "commitizen>=4.1.0",
     "google-api-python-client-stubs>=1.30.0",
     "mkdocs>=1.6.1",
     "mkdocs-material>=9.6.15",
     "mkdocstrings-python>=1.16.12",
     "mypy>=1.17.0",
+    "pre-commit>=4.0.0",
     "pymdown-extensions>=10.16.1",
     "pytest>=8.4.1",
     "pytest-cov>=6.2.1",
@@ -80,3 +82,24 @@ exclude_lines = [
     "raise NotImplementedError",
     "if TYPE_CHECKING:",
 ]
+
+# Conventional Commits Configuration
+# Commits must follow the format: <type>(<optional-scope>): <description>
+# Example: feat(auth): add OAuth2 login support
+# Example: fix: resolve null pointer in email parser
+[tool.commitizen]
+name = "cz_conventional_commits"
+version = "0.1.0"
+tag_format = "v$version"
+allowed_prefixes = ["Merge", "Revert", "Initial"]
+# Allowed commit types:
+#   feat:     A new feature
+#   fix:      A bug fix
+#   docs:     Documentation only changes
+#   style:    Changes that don't affect code meaning (whitespace, formatting)
+#   refactor: Code change that neither fixes a bug nor adds a feature
+#   perf:     Performance improvement
+#   test:     Adding or correcting tests
+#   build:    Changes to build system or dependencies
+#   ci:       Changes to CI configuration
+#   chore:    Other changes that don't modify src or test files

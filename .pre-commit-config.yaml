@@ -1,0 +1,19 @@
+# Pre-commit hooks for automated code quality and commit message enforcement
+# Install: uv run pre-commit install --hook-type commit-msg --hook-type pre-commit
+# Manual run: uv run pre-commit run --all-files
+
+repos:
+  # Commit message linting - enforces conventional commits
+  - repo: https://github.com/commitizen-tools/commitizen
+    rev: v4.1.0
+    hooks:
+      - id: commitizen
+        stages: [commit-msg]
+
+  # Code formatting and linting (already configured in pyproject.toml)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.6
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
