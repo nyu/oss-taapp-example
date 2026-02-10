@@ -76,10 +76,10 @@ ta-assignment/
         ```
     -   **Important:** Credential files contain secrets and are ignored by `.gitignore`.
 
-4.  **Create and Sync the Virtual Environment:**
-    This single command creates a `.venv` folder and installs all packages (including workspace members and development tools) defined in `uv.lock`.
+4.  **Set Up the Development Environment:**
+    This command creates a `.venv` folder, installs all packages, and configures pre-commit hooks for code quality and conventional commit enforcement.
     ```bash
-    uv sync --all-packages --extra dev
+    make setup
     ```
 
 5.  **Activate the Virtual Environment:**
@@ -100,6 +100,16 @@ ta-assignment/
 ## Development Workflow
 
 All commands should be run from the project root with the virtual environment activated.
+
+### Makefile Commands
+
+| Command | Description |
+|---------|-------------|
+| `make setup` | Full setup: sync dependencies + install pre-commit hooks |
+| `make sync` | Sync dependencies only |
+| `make lint` | Run pre-commit hooks on all files |
+| `make test` | Run pytest |
+| `make check` | Run both lint and test |
 
 ### Running the Application
 
@@ -208,10 +218,10 @@ See `docs/circleci-setup.md` for detailed CI/CD setup instructions.
 ## Development Workflow
 
 ### Quick Start
-1. **Install dependencies**: `uv sync --all-packages --extra dev`
-2. **Run tests**: `uv run pytest tests/ -v` or `uv run pytest src/ tests/ -m "not local_credentials" -v`
-3. **Check code quality**: `uv run ruff check . && uv run ruff format --check .`
-4. **Fix formatting**: `uv run ruff format .`
+1. **Set up environment**: `make setup` (installs dependencies and pre-commit hooks)
+2. **Run tests**: `make test` or `uv run pytest src/ tests/ -m "not local_credentials" -v`
+3. **Check code quality**: `make lint`
+4. **Run all checks**: `make check` (lint + test)
 5. **View documentation**: `uv run mkdocs serve`
 
 ### Best Practices
